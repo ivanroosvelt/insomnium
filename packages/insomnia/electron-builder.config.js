@@ -20,7 +20,6 @@ const config = {
   files: [
     {
       from: "./build",
-      to: ".",
       filter: ["**/*", "!opensource-licenses.txt"],
     },
     "./package.json",
@@ -34,7 +33,6 @@ const config = {
     },
     {
       from: "./build",
-      to: ".",
       filter: "opensource-licenses.txt",
     },
   ],
