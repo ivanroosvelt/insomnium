@@ -83,7 +83,7 @@ jobs:
       # # 
 
       # - name: Upload smoke test traces
-      #   uses: actions/upload-artifact@v3
+      #   uses: actions/upload-artifact@v4
       #   with:
       #     if-no-files-found: ignore
       #     name: ubuntu-smoke-test-traces-${{ github.run_number }}

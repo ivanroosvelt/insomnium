@@ -165,7 +165,7 @@
 #         run: npm run changelog-image
 
 #       - name: Upload artifacts
-#         uses: actions/upload-artifact@v3
+#         uses: actions/upload-artifact@v4
 #         with:
 #           if-no-files-found: error
 #           name: changelog-image-${{ needs.parse-version.outputs.version }}
