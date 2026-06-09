@@ -23,6 +23,8 @@ import { EnumSetting } from './enum-setting';
 import { MaskedSetting } from './masked-setting';
 import { NumberSetting } from './number-setting';
 import { TextSetting } from './text-setting';
+import { HelpTooltip } from '../help-tooltip';
+import { useSettingsPatcher } from '../../hooks/use-request';
 
 /**
  * We are attempting to move the app away from needing settings changes to restart the app.
@@ -41,6 +43,7 @@ export const General: FC = () => {
   const {
     settings,
   } = useRouteLoaderData('root') as RootLoaderData;
+  const patchSettings = useSettingsPatcher();
 
   return (
     <div className="pad-bottom">
@@ -352,6 +355,36 @@ export const General: FC = () => {
             setting="disableUpdateNotification"
           /></>
       )} */}
+
+      <hr className="pad-top" />
+      <h2>Local Sync</h2>
+      <div className="form-row pad-top-sm">
+        <div className="form-control form-control--outlined">
+          <label>
+            Local Sync Path
+            <HelpTooltip className="space-left">Select a folder to sync your projects locally.</HelpTooltip>
+            <div className="form-row">
+              <input
+                type="text"
+                value={settings.localSyncPath || ''}
+                readOnly
+                placeholder="No folder selected"
+              />
+              <button
+                className="btn btn--clicky"
+                onClick={async () => {
+                  const { filePaths } = await window.dialog.showOpenDialog({ properties: ['openDirectory'] });
+                  if (filePaths && filePaths.length > 0) {
+                    patchSettings({ localSyncPath: filePaths[0] });
+                  }
+                }}
+              >
+                Select Folder
+              </button>
+            </div>
+          </label>
+        </div>
+      </div>
 
       <hr className="pad-top" />
 

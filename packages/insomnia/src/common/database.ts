@@ -16,6 +16,7 @@ import type { Workspace } from '../models/workspace';
 import { DB_PERSIST_INTERVAL } from './constants';
 import { generateId } from './misc';
 import { dummyStartingWorkspace, importToWorkspaceFromJSON } from './import';
+import { initLocalSync } from '../sync/local-sync-manager';
 
 export interface Query {
   _id?: string | SpecificQuery;
@@ -406,6 +407,11 @@ export const database = {
         // @ts-expect-error -- TSCONVERSION optional type on response
         await model.hookDatabaseInit?.(consoleLog);
       }
+    }
+    
+    // Init local sync manager
+    if (!config.inMemoryOnly && process.type !== 'renderer') {
+      initLocalSync().catch(err => consoleLog('[local-sync] Failed to initialize:', err));
     }
   },
 
