@@ -64,6 +64,7 @@ const config = {
     notarize: {
       teamId: "679M9248WK",
     },
+    mergeASARs: false,
     asarUnpack: ["node_modules/@getinsomnia/node-libcurl"],
   },
   dmg: {
